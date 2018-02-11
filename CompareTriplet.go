@@ -24,7 +24,7 @@ func main() {
             continue
         } else if aliceScore > bobScore {
 			alicePoints += 1
-		} else if bobScore > aliceScore {
+		} else {
 			bobPoints += 1
 		}
 	}
