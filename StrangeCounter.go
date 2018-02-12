@@ -14,21 +14,17 @@ func main() {
 
 	line1, _ := buf.ReadString('\n')
 	timer, _ := strconv.Atoi(strings.TrimSpace(line1))
+	lowerRange := 1
 
-	startIndex := 3
-	internalIndex := startIndex
+	for {
+		value := lowerRange + 2 
+		upperRange := lowerRange + value
 
-	for externalTimer := 1; ; externalTimer++ {
-
-		if externalTimer == timer {
+		if timer >= lowerRange && timer < upperRange {
+			fmt.Printf("%v\n", lowerRange - timer + value)
 			break
-		} else if internalIndex == 1 {
-			startIndex += startIndex
-			internalIndex = startIndex
-		} else {
-			internalIndex--
 		}
-	}
 
-	fmt.Printf("%v\n", internalIndex)
+		lowerRange = upperRange
+	}
 }
