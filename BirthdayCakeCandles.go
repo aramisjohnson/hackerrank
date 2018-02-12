@@ -10,8 +10,9 @@ import (
 )
 
 func main() {
-	swapped := true
-	maxCandleCount := 0
+	candleMap := make(map[int]int)
+	candleKey := 0
+
 	buf := bufio.NewReader(os.Stdin)
 
 	line1, _ := buf.ReadString('\n')
@@ -19,24 +20,20 @@ func main() {
 	line2, _ := buf.ReadString('\n')
 	inputs := strings.Split(strings.TrimSpace(line2), " ")
 
-	//sort inputs
-	for swapped {
-		swapped = false
 
-		for index := 0; index < candleCount-1; index++ {
-			val1, _ := strconv.Atoi((inputs[index]))
-			val2, _ := strconv.Atoi((inputs[index+1]))
+	for index := 0; index < candleCount; index++ {
+		candleHeight, _ := strconv.Atoi((inputs[index]))
 
-			if  val1 > val2 {
-				maxCandleCount = 0
-				inputs[index] = strconv.Itoa(val2)
-				inputs[index+1] = strconv.Itoa(val1)
-				swapped = true
-			 } else if val1 == val2 {
-			 	maxCandleCount++
-			}
+		if val, ok := candleMap[candleHeight]; ok {
+			candleMap[candleHeight] = val + 1
+		} else {
+			candleMap[candleHeight] = 1
+		}
+
+		if candleKey < candleHeight {
+			candleKey = candleHeight
 		}
 	}
 
-	fmt.Printf("%v",maxCandleCount)
+	fmt.Printf("%v",candleMap[candleKey])
 }
